@@ -1,14 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import theme from "./theme/theme";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { SnackbarProvider } from "./context/SnackbarContext";
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <SnackbarProvider>
+      <App />
+    </SnackbarProvider>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
