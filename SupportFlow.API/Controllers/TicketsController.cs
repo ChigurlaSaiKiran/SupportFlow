@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SupportFlow.Application.DTOs;
 using SupportFlow.Application.DTOs.Tickets;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 namespace SupportFlow.API.Controllers
 {
     [Authorize]
-    [ApiController]
+    [ApiController] 
     [Route("api/[controller]")]
     public class TicketsController : ControllerBase
     {
@@ -39,9 +38,19 @@ namespace SupportFlow.API.Controllers
             return Ok(result);
         }
 
+        //[HttpGet]
+        //// public async Task<IActionResult> GetAll()     
+        //public async Task<ActionResult<IEnumerable<TicketResponseDto>>> GetAll()
+
+        //{
+        //    var tickets = await _ticketService.GetAllAsync();
+        //    var result = _mapper.Map<IEnumerable<TicketResponseDto>>(tickets);
+        //    return Ok(result);
+        //}
+
         // ---------------- GET BY ID ----------------
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<TicketResponseDto>> GetById(int id)
         {
             var ticket = await _ticketService.GetByIdAsync(id);
             if (ticket == null)
@@ -49,6 +58,7 @@ namespace SupportFlow.API.Controllers
 
             var result = _mapper.Map<TicketResponseDto>(ticket);
             return Ok(result);
+            //08/06  return Ok( ticket);
         }
 
 

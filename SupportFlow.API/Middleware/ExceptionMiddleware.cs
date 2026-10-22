@@ -36,6 +36,7 @@ namespace SupportFlow.API.Middleware
             var statusCode = HttpStatusCode.InternalServerError;
 
             var response = new ErrorResponse
+
             {
                 StatusCode = (int)statusCode,
                 Message = "An unexpected error occurred",           

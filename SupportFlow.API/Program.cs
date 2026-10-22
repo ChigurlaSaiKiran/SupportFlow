@@ -8,7 +8,6 @@ using SupportFlow.Application.Interfaces;
 using SupportFlow.Application.Mappings;
 using SupportFlow.Domain.Entities;
 using SupportFlow.API.Common;
-//using SupportFlow.Application.Mappings;
 using SupportFlow.Infrastructure.Data;
 using SupportFlow.Infrastructure.Repositories;
 using SupportFlow.Infrastructure.Services;
@@ -60,7 +59,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -78,7 +76,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.EnableDetailedErrors();
     }
 });
-
 //builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 //builder.Services.AddScoped<ITicketService, TicketService>();
 
@@ -96,12 +93,14 @@ builder.Services.AddScoped<ITicketCommentService, TicketCommentService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserDepartmentService, UserDepartmentService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IWorkLogService, WorkLogService>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<JwtTokenGenerator>();
 builder.Services.AddScoped<ITokenService, JwtTokenGenerator>();
-
 
 // ---------------- UnitOfWork ----------------
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -147,7 +146,6 @@ using (var scope = app.Services.CreateScope())
             new Role { Name = "Agent" },
             new Role { Name = "User" }
         );
-
         context.SaveChanges();
     }
 }

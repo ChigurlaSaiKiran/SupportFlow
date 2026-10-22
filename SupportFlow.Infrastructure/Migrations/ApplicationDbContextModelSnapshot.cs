@@ -22,6 +22,44 @@ namespace SupportFlow.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SupportFlow.Domain.Entities.Attendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CheckInTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CheckOutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("TotalHours")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attendances");
+                });
+
             modelBuilder.Entity("SupportFlow.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -72,6 +110,54 @@ namespace SupportFlow.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments", (string)null);
+                });
+
+            modelBuilder.Entity("SupportFlow.Domain.Entities.LeaveRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ApprovedByManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LeaveType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovedByManagerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("LeaveRequests");
                 });
 
             modelBuilder.Entity("SupportFlow.Domain.Entities.Priority", b =>
@@ -128,23 +214,6 @@ namespace SupportFlow.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    //b.HasData(
-                    //    new
-                    //    {
-                    //        Id = 1,
-                    //        Name = "Admin"
-                    //    },
-                    //    new
-                    //    {
-                    //        Id = 2,
-                    //        Name = "Agent"
-                    //    },
-                    //    new
-                    //    {
-                    //        Id = 3,
-                    //        Name = "User"
-                    //    });
                 });
 
             modelBuilder.Entity("SupportFlow.Domain.Entities.Status", b =>
@@ -335,6 +404,55 @@ namespace SupportFlow.Infrastructure.Migrations
                     b.ToTable("UserDepartments");
                 });
 
+            modelBuilder.Entity("SupportFlow.Domain.Entities.WorkLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApprovalStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ApprovedByManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("HoursSpent")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<string>("ManagerComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskDescription")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("TaskStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovedByManagerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkLogs");
+                });
+
             modelBuilder.Entity("TicketAttachment", b =>
                 {
                     b.Property<int>("Id")
@@ -366,6 +484,35 @@ namespace SupportFlow.Infrastructure.Migrations
                     b.HasIndex("TicketId");
 
                     b.ToTable("TicketAttachments");
+                });
+
+            modelBuilder.Entity("SupportFlow.Domain.Entities.Attendance", b =>
+                {
+                    b.HasOne("SupportFlow.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SupportFlow.Domain.Entities.LeaveRequest", b =>
+                {
+                    b.HasOne("SupportFlow.Domain.Entities.User", "ApprovedByManager")
+                        .WithMany()
+                        .HasForeignKey("ApprovedByManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SupportFlow.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedByManager");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SupportFlow.Domain.Entities.Ticket", b =>
@@ -461,6 +608,24 @@ namespace SupportFlow.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SupportFlow.Domain.Entities.WorkLog", b =>
+                {
+                    b.HasOne("SupportFlow.Domain.Entities.User", "ApprovedByManager")
+                        .WithMany()
+                        .HasForeignKey("ApprovedByManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SupportFlow.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedByManager");
 
                     b.Navigation("User");
                 });

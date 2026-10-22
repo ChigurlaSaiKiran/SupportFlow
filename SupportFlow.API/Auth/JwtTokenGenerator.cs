@@ -11,12 +11,10 @@ namespace SupportFlow.API.Auth;
 public class JwtTokenGenerator : ITokenService
 {
     private readonly IConfiguration _config;
-
     public JwtTokenGenerator(IConfiguration config)
     {
         _config = config;
     }
-
     public string GenerateToken(User user)
     {
         var claims = new[]
@@ -24,9 +22,8 @@ public class JwtTokenGenerator : ITokenService
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.FullName ?? ""),
                 new Claim(ClaimTypes.Email, user.Email ?? ""),
-                new Claim(ClaimTypes.Role, user.Role?.Name ?? "")   // ADD ,THIS
-            };
-    
+                new Claim(ClaimTypes.Role, user.Role?.Name ?? "")   // ADD, THIS
+        };    
     var jwtKey = _config["Jwt:Key"];
 
         if (string.IsNullOrEmpty(jwtKey))

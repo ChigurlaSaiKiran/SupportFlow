@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SupportFlow.Domain.Entities;
+using SupportFlow.Infrastructure.Configurations;
 
 namespace SupportFlow.Infrastructure.Data
 {
@@ -26,7 +27,9 @@ namespace SupportFlow.Infrastructure.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Priority> Priorities { get; set; }
         public DbSet<Category> Categories { get; set; }
-
+        public DbSet<WorkLog> WorkLogs { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Status>().HasData(

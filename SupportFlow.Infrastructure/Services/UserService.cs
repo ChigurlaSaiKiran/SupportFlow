@@ -17,9 +17,7 @@ namespace SupportFlow.Infrastructure.Services
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
-
         // ================= GET ALL =================
-
         public async Task<IEnumerable<User>> GetAllAsync()
         {
             return await _repository.Query()
@@ -29,7 +27,6 @@ namespace SupportFlow.Infrastructure.Services
         }
 
         // ================= GET BY ID =================
-
         public async Task<User?> GetByIdAsync(int id)
         {
             return await _repository.Query()
@@ -38,7 +35,6 @@ namespace SupportFlow.Infrastructure.Services
         }
 
         // ================= CREATE =================
-
         public async Task<User> CreateUserAsync(UserCreateDto dto)
         {
             // ✅ Check if email already exists
@@ -66,7 +62,6 @@ namespace SupportFlow.Infrastructure.Services
 
             return user;
         }
-
         // ================= UPDATE =================
 
         public async Task<bool> UpdateAsync(int id, UserUpdateDto dto)
@@ -93,9 +88,7 @@ namespace SupportFlow.Infrastructure.Services
 
             return true;
         }
-
         // ================= DELETE =================
-
         public async Task<bool> DeleteAsync(int id)
         {
             var user = await _repository.GetByIdAsync(id);
@@ -109,9 +102,7 @@ namespace SupportFlow.Infrastructure.Services
 
             return true;
         }
-
         // ================= LOGIN =================
-
         public async Task<User?> LoginAsync(string email, string password)
         {
             email = email.Trim().ToLower();
