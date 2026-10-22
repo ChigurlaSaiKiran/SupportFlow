@@ -168,7 +168,7 @@ npm start
 
 **Chigurla Sai Kiran**  
 .NET Full Stack Developer  
-📧 saikirgrs195013@gmail.com  
+📧 saikiranrgrs195013@gmail.com  
 🔗 [GitHub](https://github.com/ChigurlaSaiKiran)
 
 ---
