@@ -26,7 +26,6 @@ import {
 const TicketForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-
   const isEditMode = Boolean(id);
   //new 02/12
   const [formData, setFormData] = useState({
@@ -181,7 +180,6 @@ const TicketForm = () => {
     }
   };
 
-  // ================= UI =================
   // ================= UI =================
   return (
     <Paper

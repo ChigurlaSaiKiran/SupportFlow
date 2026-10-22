@@ -66,10 +66,7 @@ const TicketList = () => {
       showSnackbar("Ticket deleted successfully", "success");
       loadTickets();
     } catch (error) {
-      showSnackbar(
-        error.response?.data?.message || "Delete failed",
-        "error"
-      );
+      showSnackbar(error.response?.data?.message || "Delete failed", "error");
     } finally {
       setDeleteId(null);
     }

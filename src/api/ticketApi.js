@@ -11,6 +11,7 @@ export const getTicketById = (id) => API.get(`/tickets/${id}`);
 export const createTicket = (data) => API.post("/tickets", data);
 export const updateTicket = (id, data) => API.put(`/tickets/${id}`, data);
 export const deleteTicket = (id) => API.delete(`/tickets/${id}`);
+
 // Dropdowns
 export const getStatuses = () => API.get("/Statuses");
 export const getPriorities = () => API.get("/Priorities");

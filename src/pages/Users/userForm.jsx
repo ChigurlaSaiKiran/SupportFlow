@@ -14,7 +14,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createuser, updateuser, getuserById } from "../../api/userApi";
+import { createUser, updateUser, getUserById } from "../../api/userApi";
 import { getRoles } from "../../api/roleApi";
 import { useSnackbar } from "../../context/SnackbarContext";
 
@@ -91,7 +91,7 @@ const UserForm = () => {
     try {
       setLoading(true);
 
-      const res = await getuserById(id);
+      const res = await getUserById(id);
       const data = res.data;
 
       reset({
@@ -122,11 +122,11 @@ const UserForm = () => {
       }
 
       if (isEditMode) {
-        await updateuser(id, data);
+        await updateUser(id, data);
 
         showSnackbar("User updated successfully");
       } else {
-        await createuser(data);
+        await createUser(data);
 
         showSnackbar("User created successfully");
       }

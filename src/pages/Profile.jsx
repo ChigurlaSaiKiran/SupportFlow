@@ -19,7 +19,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { useNavigate } from "react-router-dom";
-import { updateuser } from "../api/userApi";
+//import { updateUser } from "../../api/userApi";
+import { updateUser } from "../../src/api/userApi";
 import { useSnackbar } from "../context/SnackbarContext";
 import { Menu, MenuItem, ListItemIcon, ListItemText } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -112,7 +113,7 @@ const Profile = () => {
     }
     try {
       setLoading(true);
-      await updateuser(user.id, {
+      await updateUser(user.id, {
         fullName: formData.fullName,
         email: formData.email,
         // phone: formData.phone,

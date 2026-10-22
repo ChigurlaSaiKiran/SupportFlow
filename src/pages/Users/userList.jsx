@@ -20,7 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonIcon from "@mui/icons-material/Person";
-import { getAllusers, deleteuser } from "../../api/userApi";
+import { getAllUsers, deleteUser } from "../../api/userApi";
 import EmptyState from "../../components/EmptyState";
 import { useSnackbar } from "../../context/SnackbarContext";
 
@@ -37,7 +37,7 @@ const UserList = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await getAllusers();
+      const res = await getAllUsers();
       setUsers(res.data || []);
     } catch (error) {
       showSnackbar(
@@ -70,7 +70,7 @@ const UserList = () => {
     if (!deleteId) return;
     try {
       setDeleteLoading(true);
-      await deleteuser(deleteId);
+      await deleteUser(deleteId);
       showSnackbar("User deleted successfully", "success");
       fetchUsers();
     } catch (error) {
